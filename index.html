@@ -1,1 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saturn Valley Diner Menu</title>
+    <style>
+        /* Minimal CSS to achieve the requested layout */
+        body {
+            font-family: 'Courier New', Courier, monospace; /* Mr. Saturn Font vibe */
+            background-color: #f4f1ea;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
+        .menu-list {
+            list-style: none; /* Remove bullet points */
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu-item {
+            display: flex; /* Creates the Side-by-Side layout */
+            gap: 20px;
+            border-bottom: 2px solid #a3ce27; /* Saturn Green */
+            padding: 20px 0;
+            align-items: flex-start;
+        }
+
+        .menu-item img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            background-color: #ddd; /* Placeholder color */
+            flex-shrink: 0; /* Prevents image from squishing */
+        }
+
+        .item-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .item-name {
+            font-size: 1.5rem;
+            margin: 0 0 10px 0;
+            font-weight: bold;
+        }
+
+        .item-desc {
+            margin: 0 0 15px 0;
+            line-height: 1.4;
+        }
+
+        .item-price {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <header>
+            <h1>Saturn Valley Diner</h1>
+            <p>Dakota! Welcome! Zoom!</p>
+        </header>
+
+        <section aria-label="Main Menu">
+            <ul class="menu-list">
+                
+                <li>
+                    <article class="menu-item">
+                        <img src="https://via.placeholder.com/300x300.png?text=Peanut+Cheese+Bar" alt="A wrapped bar of peanut butter and cheese" width="300" height="300">
+                        <div class="item-details">
+                            <h2 class="item-name">Peanut Cheese Bar</h2>
+                            <p class="item-desc">Great taste! Recovers approximately 100 HP. Made with love by Mr. Saturn.</p>
+                            <span class="item-price">$22</span>
+                        </div>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="menu-item">
+                        <img src="https://via.placeholder.com/300x300.png?text=Piggy+Jelly" alt="A jar of pink, translucent jelly" width="300" height="300">
+                        <div class="item-details">
+                            <h2 class="item-name">Piggy Jelly</h2>
+                            <p class="item-desc">Very delicious. Recovers approximately 300 HP. Do not feed to pigs.</p>
+                            <span class="item-price">$75</span>
+                        </div>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="menu-item">
+                        <img src="https://via.placeholder.com/300x300.png?text=Horn+of+Life" alt="A golden spiral horn glowing faintly" width="300" height="300">
+                        <div class="item-details">
+                            <h2 class="item-name">Horn of Life</h2>
+                            <p class="item-desc">Revives a fainted friend with full health. A true Saturn Valley specialty. Kay-o!</p>
+                            <span class="item-price">$1780</span>
+                        </div>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="menu-item">
+                        <img src="https://via.placeholder.com/300x300.png?text=Cup+of+Lifenoodles" alt="Steaming cup of instant noodles" width="300" height="300">
+                        <div class="item-details">
+                            <h2 class="item-name">Cup of Lifenoodles</h2>
+                            <p class="item-desc">Instant miracle! Revives a friend and recovers all HP. Zoom!</p>
+                            <span class="item-price">$178</span>
+                        </div>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="menu-item">
+                        <img src="https://via.placeholder.com/300x300.png?text=Brain+Food+Lunch" alt="A boxed lunch with unidentifiable but healthy contents" width="300" height="300">
+                        <div class="item-details">
+                            <h2 class="item-name">Brain Food Lunch</h2>
+                            <p class="item-desc">Recovers 300 HP and 50 PP. Makes you feel smart! Boing!</p>
+                            <span class="item-price">$800</span>
+                        </div>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="menu-item">
+                        <img src="https://via.placeholder.com/300x300.png?text=Refreshing+Herb" alt="A green leafy herb" width="300" height="300">
+                        <div class="item-details">
+                            <h2 class="item-name">Refreshing Herb</h2>
+                            <p class="item-desc">Cures poison, nausea, and colds. Tastes like morning dew.</p>
+                            <span class="item-price">$80</span>
+                        </div>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="menu-item">
+                        <img src="https://via.placeholder.com/300x300.png?text=Secret+Herb" alt="A mysterious purple herb" width="300" height="300">
+                        <div class="item-details">
+                            <h2 class="item-name">Secret Herb</h2>
+                            <p class="item-desc">Revives fainted friends and cures status ailments. Very secret.</p>
+                            <span class="item-price">$380</span>
+                        </div>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="menu-item">
+                        <img src="https://via.placeholder.com/300x300.png?text=Kraken+Soup" alt="A bowl of soup with a tentacle sticking out" width="300" height="300">
+                        <div class="item-details">
+                            <h2 class="item-name">Kraken Soup</h2>
+                            <p class="item-desc">Recovers all health. Made from scratch. Slightly chewy.</p>
+                            <span class="item-price">$650</span>
+                        </div>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="menu-item">
+                        <img src="https://via.placeholder.com/300x300.png?text=Saturn+Coffee" alt="A mug of coffee with psychedelic steam" width="300" height="300">
+                        <div class="item-details">
+                            <h2 class="item-name">Saturn Coffee</h2>
+                            <p class="item-desc">Beverage. Makes you see strange text backgrounds. Gives a long monologue.</p>
+                            <span class="item-price">$5</span>
+                        </div>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="menu-item">
+                        <img src="https://via.placeholder.com/300x300.png?text=Mach+Pizza+Cola" alt="A fizzy brown drink" width="300" height="300">
+                        <div class="item-details">
+                            <h2 class="item-name">Mach Pizza Cola</h2>
+                            <p class="item-desc">Beverage. Delivered in 3 minutes or it's free! Refreshing!</p>
+                            <span class="item-price">$12</span>
+                        </div>
+                    </article>
+                </li>
+
+            </ul>
+        </section>
+    </main>
+</body>
+</html>
