@@ -3,62 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saturn Valley Diner Menu</title>
+    <title>Saturn Valley Diner | Interactive Menu</title>
     <style>
-        /* Minimal CSS to achieve the requested layout */
-        body {
-            font-family: 'Courier New', Courier, monospace; /* Mr. Saturn Font vibe */
-            background-color: #f4f1ea;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+        /* --- CSS VARIABLES FOR THEME --- */
+        :root {
+            --saturn-bg: #fdf5e6;
+            --saturn-border: #4a4a4a;
+            --saturn-green: #a3ce27;
+            --saturn-red: #d32f2f;
+            --saturn-font-stack: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif; /* Closest web-safe vibe to Mr. Saturn */
         }
 
-        .menu-list {
-            list-style: none; /* Remove bullet points */
-            padding: 0;
+        /* --- GLOBAL STYLES --- */
+        body {
+            font-family: var(--saturn-font-stack);
+            background-color: var(--saturn-bg);
+            color: #333;
             margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding-bottom: 80px; /* Space for the fixed cart footer */
+        }
+
+        /* --- HEADER & CONTROLS --- */
+        header {
+            text-align: center;
+            border-bottom: 4px dashed var(--saturn-green);
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            letter-spacing: -1px;
+            transform: rotate(-2deg); /* Quirky tilt */
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .filter-btn {
+            background: #fff;
+            border: 2px solid var(--saturn-border);
+            padding: 8px 16px;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--saturn-green);
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        /* --- MENU GRID --- */
+        .menu-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            gap: 20px;
         }
 
         .menu-item {
-            display: flex; /* Creates the Side-by-Side layout */
-            gap: 20px;
-            border-bottom: 2px solid #a3ce27; /* Saturn Green */
-            padding: 20px 0;
-            align-items: flex-start;
+            background: #fff;
+            border: 3px solid var(--saturn-border);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            transition: transform 0.2s;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 5px 5px 0px rgba(0,0,0,0.1);
         }
 
         .menu-item img {
-            width: 300px;
-            height: 300px;
+            width: 200px;
+            height: 200px;
             object-fit: cover;
-            border-radius: 8px;
-            background-color: #ddd; /* Placeholder color */
-            flex-shrink: 0; /* Prevents image from squishing */
+            border-right: 3px solid var(--saturn-border);
         }
 
         .item-details {
+            padding: 20px;
+            flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
+        }
+
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
         }
 
         .item-name {
-            font-size: 1.5rem;
-            margin: 0 0 10px 0;
-            font-weight: bold;
-        }
-
-        .item-desc {
-            margin: 0 0 15px 0;
-            line-height: 1.4;
+            margin: 0;
+            font-size: 1.4rem;
         }
 
         .item-price {
             font-weight: bold;
+            color: var(--saturn-red);
             font-size: 1.2rem;
-            color: #d32f2f;
+            background: #ffecec;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .add-btn {
+            align-self: flex-start;
+            background-color: var(--saturn-border);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            font-family: inherit;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .add-btn:hover {
+            background-color: var(--saturn-red);
+        }
+
+        /* --- STICKY CART FOOTER --- */
+        .rpg-hud {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #333;
+            color: #fff;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .hud-label {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #aaa;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes boing {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4); }
+            100% { transform: scale(1); }
+        }
+
+        .boing-anim {
+            animation: boing 0.3s ease-in-out;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .menu-item {
+                flex-direction: column;
+            }
+            .menu-item img {
+                width: 100%;
+                height: 200px;
+                border-right: none;
+                border-bottom: 3px solid var(--saturn-border);
+            }
+            .rpg-hud {
+                width: 90%;
+                justify-content: space-between;
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 10px;
+            }
         }
     </style>
 </head>
@@ -68,123 +206,219 @@
         <header>
             <h1>Saturn Valley Diner</h1>
             <p>Dakota! Welcome! Zoom!</p>
+            
+            <nav class="controls" aria-label="Menu Filters">
+                <button class="filter-btn active" onclick="filterMenu('all')">All</button>
+                <button class="filter-btn" onclick="filterMenu('food')">Food</button>
+                <button class="filter-btn" onclick="filterMenu('beverage')">Beverages</button>
+            </nav>
         </header>
 
         <section aria-label="Main Menu">
-            <ul class="menu-list">
+            <ul class="menu-list" id="menuContainer">
                 
-                <li>
+                <li data-category="food">
                     <article class="menu-item">
-                        <img src="https://via.placeholder.com/300x300.png?text=Peanut+Cheese+Bar" alt="A wrapped bar of peanut butter and cheese" width="300" height="300">
+                        <img src="https://via.placeholder.com/300x300.png?text=Peanut+Cheese" alt="Peanut Cheese Bar">
                         <div class="item-details">
-                            <h2 class="item-name">Peanut Cheese Bar</h2>
-                            <p class="item-desc">Great taste! Recovers approximately 100 HP. Made with love by Mr. Saturn.</p>
-                            <span class="item-price">$22</span>
+                            <div class="header-row">
+                                <h2 class="item-name">Peanut Cheese Bar</h2>
+                                <span class="item-price">$22</span>
+                            </div>
+                            <p class="item-desc">Great taste! Recovers 100 HP. Made with love.</p>
+                            <button class="add-btn" onclick="addToCart(22, this)">Buy This!</button>
                         </div>
                     </article>
                 </li>
 
-                <li>
+                <li data-category="food">
                     <article class="menu-item">
-                        <img src="https://via.placeholder.com/300x300.png?text=Piggy+Jelly" alt="A jar of pink, translucent jelly" width="300" height="300">
+                        <img src="https://via.placeholder.com/300x300.png?text=Piggy+Jelly" alt="Piggy Jelly">
                         <div class="item-details">
-                            <h2 class="item-name">Piggy Jelly</h2>
-                            <p class="item-desc">Very delicious. Recovers approximately 300 HP. Do not feed to pigs.</p>
-                            <span class="item-price">$75</span>
+                            <div class="header-row">
+                                <h2 class="item-name">Piggy Jelly</h2>
+                                <span class="item-price">$75</span>
+                            </div>
+                            <p class="item-desc">Very delicious. Recovers 300 HP. Do not feed to pigs.</p>
+                            <button class="add-btn" onclick="addToCart(75, this)">Buy This!</button>
                         </div>
                     </article>
                 </li>
 
-                <li>
+                <li data-category="food">
                     <article class="menu-item">
-                        <img src="https://via.placeholder.com/300x300.png?text=Horn+of+Life" alt="A golden spiral horn glowing faintly" width="300" height="300">
+                        <img src="https://via.placeholder.com/300x300.png?text=Horn+of+Life" alt="Horn of Life">
                         <div class="item-details">
-                            <h2 class="item-name">Horn of Life</h2>
-                            <p class="item-desc">Revives a fainted friend with full health. A true Saturn Valley specialty. Kay-o!</p>
-                            <span class="item-price">$1780</span>
+                            <div class="header-row">
+                                <h2 class="item-name">Horn of Life</h2>
+                                <span class="item-price">$1780</span>
+                            </div>
+                            <p class="item-desc">Revives a fainted friend. Kay-o!</p>
+                            <button class="add-btn" onclick="addToCart(1780, this)">Buy This!</button>
                         </div>
                     </article>
                 </li>
 
-                <li>
+                <li data-category="food">
                     <article class="menu-item">
-                        <img src="https://via.placeholder.com/300x300.png?text=Cup+of+Lifenoodles" alt="Steaming cup of instant noodles" width="300" height="300">
+                        <img src="https://via.placeholder.com/300x300.png?text=Lifenoodles" alt="Cup of Lifenoodles">
                         <div class="item-details">
-                            <h2 class="item-name">Cup of Lifenoodles</h2>
-                            <p class="item-desc">Instant miracle! Revives a friend and recovers all HP. Zoom!</p>
-                            <span class="item-price">$178</span>
+                            <div class="header-row">
+                                <h2 class="item-name">Cup of Lifenoodles</h2>
+                                <span class="item-price">$178</span>
+                            </div>
+                            <p class="item-desc">Instant miracle! Revives friend + full HP. Zoom!</p>
+                            <button class="add-btn" onclick="addToCart(178, this)">Buy This!</button>
                         </div>
                     </article>
                 </li>
 
-                <li>
+                <li data-category="food">
                     <article class="menu-item">
-                        <img src="https://via.placeholder.com/300x300.png?text=Brain+Food+Lunch" alt="A boxed lunch with unidentifiable but healthy contents" width="300" height="300">
+                        <img src="https://via.placeholder.com/300x300.png?text=Brain+Food" alt="Brain Food Lunch">
                         <div class="item-details">
-                            <h2 class="item-name">Brain Food Lunch</h2>
-                            <p class="item-desc">Recovers 300 HP and 50 PP. Makes you feel smart! Boing!</p>
-                            <span class="item-price">$800</span>
+                            <div class="header-row">
+                                <h2 class="item-name">Brain Food Lunch</h2>
+                                <span class="item-price">$800</span>
+                            </div>
+                            <p class="item-desc">Recovers 300 HP and 50 PP. Makes you feel smart!</p>
+                            <button class="add-btn" onclick="addToCart(800, this)">Buy This!</button>
                         </div>
                     </article>
                 </li>
 
-                <li>
+                <li data-category="food">
                     <article class="menu-item">
-                        <img src="https://via.placeholder.com/300x300.png?text=Refreshing+Herb" alt="A green leafy herb" width="300" height="300">
+                        <img src="https://via.placeholder.com/300x300.png?text=Refreshing+Herb" alt="Refreshing Herb">
                         <div class="item-details">
-                            <h2 class="item-name">Refreshing Herb</h2>
-                            <p class="item-desc">Cures poison, nausea, and colds. Tastes like morning dew.</p>
-                            <span class="item-price">$80</span>
+                            <div class="header-row">
+                                <h2 class="item-name">Refreshing Herb</h2>
+                                <span class="item-price">$80</span>
+                            </div>
+                            <p class="item-desc">Cures poison, nausea, and colds.</p>
+                            <button class="add-btn" onclick="addToCart(80, this)">Buy This!</button>
                         </div>
                     </article>
                 </li>
 
-                <li>
+                <li data-category="food">
                     <article class="menu-item">
-                        <img src="https://via.placeholder.com/300x300.png?text=Secret+Herb" alt="A mysterious purple herb" width="300" height="300">
+                        <img src="https://via.placeholder.com/300x300.png?text=Secret+Herb" alt="Secret Herb">
                         <div class="item-details">
-                            <h2 class="item-name">Secret Herb</h2>
-                            <p class="item-desc">Revives fainted friends and cures status ailments. Very secret.</p>
-                            <span class="item-price">$380</span>
+                            <div class="header-row">
+                                <h2 class="item-name">Secret Herb</h2>
+                                <span class="item-price">$380</span>
+                            </div>
+                            <p class="item-desc">Revives friends. Very secret. Boing!</p>
+                            <button class="add-btn" onclick="addToCart(380, this)">Buy This!</button>
                         </div>
                     </article>
                 </li>
 
-                <li>
+                <li data-category="food">
                     <article class="menu-item">
-                        <img src="https://via.placeholder.com/300x300.png?text=Kraken+Soup" alt="A bowl of soup with a tentacle sticking out" width="300" height="300">
+                        <img src="https://via.placeholder.com/300x300.png?text=Kraken+Soup" alt="Kraken Soup">
                         <div class="item-details">
-                            <h2 class="item-name">Kraken Soup</h2>
-                            <p class="item-desc">Recovers all health. Made from scratch. Slightly chewy.</p>
-                            <span class="item-price">$650</span>
+                            <div class="header-row">
+                                <h2 class="item-name">Kraken Soup</h2>
+                                <span class="item-price">$650</span>
+                            </div>
+                            <p class="item-desc">Recovers all health. Slightly chewy.</p>
+                            <button class="add-btn" onclick="addToCart(650, this)">Buy This!</button>
                         </div>
                     </article>
                 </li>
 
-                <li>
+                <li data-category="beverage">
                     <article class="menu-item">
-                        <img src="https://via.placeholder.com/300x300.png?text=Saturn+Coffee" alt="A mug of coffee with psychedelic steam" width="300" height="300">
+                        <img src="https://via.placeholder.com/300x300.png?text=Saturn+Coffee" alt="Saturn Coffee">
                         <div class="item-details">
-                            <h2 class="item-name">Saturn Coffee</h2>
-                            <p class="item-desc">Beverage. Makes you see strange text backgrounds. Gives a long monologue.</p>
-                            <span class="item-price">$5</span>
+                            <div class="header-row">
+                                <h2 class="item-name">Saturn Coffee</h2>
+                                <span class="item-price">$5</span>
+                            </div>
+                            <p class="item-desc">Beverage. Makes you see strange text backgrounds.</p>
+                            <button class="add-btn" onclick="addToCart(5, this)">Buy This!</button>
                         </div>
                     </article>
                 </li>
 
-                <li>
+                <li data-category="beverage">
                     <article class="menu-item">
-                        <img src="https://via.placeholder.com/300x300.png?text=Mach+Pizza+Cola" alt="A fizzy brown drink" width="300" height="300">
+                        <img src="https://via.placeholder.com/300x300.png?text=Pizza+Cola" alt="Mach Pizza Cola">
                         <div class="item-details">
-                            <h2 class="item-name">Mach Pizza Cola</h2>
-                            <p class="item-desc">Beverage. Delivered in 3 minutes or it's free! Refreshing!</p>
-                            <span class="item-price">$12</span>
+                            <div class="header-row">
+                                <h2 class="item-name">Mach Pizza Cola</h2>
+                                <span class="item-price">$12</span>
+                            </div>
+                            <p class="item-desc">Beverage. Delivered in 3 minutes or it's free!</p>
+                            <button class="add-btn" onclick="addToCart(12, this)">Buy This!</button>
                         </div>
                     </article>
                 </li>
-
             </ul>
         </section>
     </main>
+
+    <div class="rpg-hud">
+        <span class="hud-label">Current Bill:</span>
+        <span id="totalDisplay">$0</span>
+    </div>
+
+    <script>
+        // --- JAVASCRIPT LOGIC ---
+
+        let totalAmount = 0;
+        const totalDisplay = document.getElementById('totalDisplay');
+
+        // 1. Filter Functionality
+        function filterMenu(category) {
+            const items = document.querySelectorAll('.menu-list li');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Update active button state
+            buttons.forEach(btn => {
+                if (btn.innerText.toLowerCase() === category || (category === 'all' && btn.innerText === 'All')) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // Show/Hide Items
+            items.forEach(item => {
+                const itemCat = item.getAttribute('data-category');
+                if (category === 'all' || itemCat === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // 2. Add to Cart / Buy Functionality
+        function addToCart(price, buttonElement) {
+            // Update Data
+            totalAmount += price;
+            
+            // Update UI
+            totalDisplay.innerText = "$" + totalAmount;
+
+            // Feedback Animation on the Button text
+            const originalText = buttonElement.innerText;
+            buttonElement.innerText = "Boing!";
+            
+            // Revert text after 1 second
+            setTimeout(() => {
+                buttonElement.innerText = originalText;
+            }, 800);
+
+            // Animate the Total Display
+            totalDisplay.classList.add('boing-anim');
+            setTimeout(() => {
+                totalDisplay.classList.remove('boing-anim');
+            }, 300);
+        }
+    </script>
 </body>
 </html>
